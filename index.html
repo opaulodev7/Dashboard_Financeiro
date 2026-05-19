@@ -1,238 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Financeiro</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
-</head>
-
-<body>
-
+  <body>
     <div class="container">
+      <!-- CABEÇALHO -->
+      <header class="header">
+        <h1>Dashboard Financeiro</h1>
+        <p>Controle suas finanças de forma simples</p>
+        <button id="toggle-tema">Alternar Tema</button>
+      </header>
 
-        <!-- CABEÇALHO -->
-        <header class="header">
+      <!-- CARDS -->
+      <section class="cards">
+        <div class="card saldo">
+          <h3>Saldo Total</h3>
+          <p id="saldo">R$ 0.00</p>
+        </div>
 
-            <h1>Dashboard Financeiro</h1>
+        <div class="card entrada">
+          <h3>Entradas</h3>
+          <p id="entradas">R$ 0.00</p>
+        </div>
 
-            <p>
-                Controle suas finanças de forma simples
-            </p>
+        <div class="card saida">
+          <h3>Despesas</h3>
+          <p id="despesas">R$ 0.00</p>
+        </div>
+      </section>
 
-        </header>
+      <!-- FORMULÁRIO -->
+      <section class="form-section">
+        <h2>Nova Transação</h2>
+        <form id="form-transacao">
+          <input
+            type="number"
+            id="valor"
+            placeholder="Valor"
+            step="0.01"
+            required
+          />
+          <input type="text" id="descricao" placeholder="Descrição" required />
+          <input type="text" id="categoria" placeholder="Categoria" required />
+          <select id="tipo" required>
+            <option value="">Selecione o tipo</option>
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+          </select>
+          <button type="submit">Adicionar Transação</button>
+        </form>
+      </section>
 
-        <!-- CARDS -->
-        <section class="cards">
+      <!-- GRÁFICOS -->
+      <section class="grafico-section">
+        <div class="grafico-header">
+          <h2>Resumo Financeiro</h2>
+        </div>
 
-            <div class="card saldo">
+        <div class="grafico-container">
+          <!-- ÁREA PIZZA -->
+          <div class="pizza-area">
+            <canvas id="graficoFinanceiro"></canvas>
 
-                <h3>Saldo Total</h3>
+            <!-- LEGENDA -->
+            <div class="legenda">
+              <div class="legenda-item">
+                <span class="cor entrada-cor"></span>
+                <p>Entradas</p>
+              </div>
 
-                <p id="saldo">R$ 0.00</p>
-
+              <div class="legenda-item">
+                <span class="cor saida-cor"></span>
+                <p>Despesas</p>
+              </div>
             </div>
+          </div>
 
-            <div class="card entrada">
+          <!-- GRÁFICO BARRAS -->
+          <div class="grafico-barras-container">
+            <h3>Entradas vs Despesas</h3>
+            <canvas id="graficoBarras" 
+    ></canvas>
+          </div>
+        </div>
+      </section>
 
-                <h3>Entradas</h3>
-
-                <p id="entradas">R$ 0.00</p>
-
-            </div>
-
-            <div class="card saida">
-
-                <h3>Despesas</h3>
-
-                <p id="despesas">R$ 0.00</p>
-
-            </div>
-
-        </section>
-
+      <!-- HISTÓRICO -->
+      <section class="historico">
         <!-- FILTROS -->
-        <section class="filtros">
+      <section class="filtros">
+        <input type="text" id="pesquisa" placeholder="Pesquisar transação..." />
 
-            <input
-                type="text"
-                id="pesquisa"
-                placeholder="Pesquisar transação..."
-            >
-
-            <select id="filtro-tipo">
-
-                <option value="todos">
-                    Todas
-                </option>
-
-                <option value="entrada">
-                    Entradas
-                </option>
-
-                <option value="saida">
-                    Despesas
-                </option>
-
-            </select>
-
-        </section>
-
-        <!-- GRÁFICOS -->
-        <section class="grafico-section">
-
-            <div class="grafico-header">
-
-                <h2>Resumo Financeiro</h2>
-
-            </div>
-
-            <div class="grafico-container">
-
-                <!-- ÁREA PIZZA -->
-                <div class="pizza-area">
-
-                    <canvas id="graficoFinanceiro"></canvas>
-
-                    <!-- LEGENDA -->
-                    <div class="legenda">
-
-                        <div class="legenda-item">
-
-                            <span class="cor entrada-cor"></span>
-
-                            <p>Entradas</p>
-
-                        </div>
-
-                        <div class="legenda-item">
-
-                            <span class="cor saida-cor"></span>
-
-                            <p>Despesas</p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- GRÁFICO BARRAS -->
-                <div class="grafico-barras-container">
-
-                    <h3>Entradas vs Despesas</h3>
-
-                    <canvas id="graficoBarras"></canvas>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- FORMULÁRIO -->
-        <section class="form-section">
-
-            <h2>Nova Transação</h2>
-
-            <form id="form-transacao">
-
-                <input
-                    type="text"
-                    id="descricao"
-                    placeholder="Descrição"
-                    required
-                >
-
-                <input
-                    type="number"
-                    id="valor"
-                    placeholder="Valor"
-                    step="0.01"
-                    required
-                >
-
-                <input
-                    type="text"
-                    id="categoria"
-                    placeholder="Categoria"
-                    required
-                >
-
-                <select id="tipo" required>
-
-                    <option value="">
-                        Selecione o tipo
-                    </option>
-
-                    <option value="entrada">
-                        Entrada
-                    </option>
-
-                    <option value="saida">
-                        Saída
-                    </option>
-
-                </select>
-
-                <button type="submit">
-
-                    Adicionar Transação
-
-                </button>
-
-            </form>
-
-        </section>
-
-        <!-- HISTÓRICO -->
-        <section class="historico">
-
-            <h2>Histórico de Transações</h2>
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Descrição</th>
-
-                        <th>Categoria</th>
-
-                        <th>Valor</th>
-
-                        <th>Tipo</th>
-
-                        <th>Ações</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="lista-transacoes">
-                </tbody>
-
-            </table>
-
-        </section>
-
+        <select id="filtro-tipo">
+          <option value="todos">Todas</option>
+          <option value="entrada">Entradas</option>
+          <option value="saida">Despesas</option>
+        </select>
+      </section>
+        <h2>Histórico de Transações</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th>Valor</th>
+              <th>Tipo</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="lista-transacoes"></tbody>
+        </table>
+      </section>
     </div>
 
     <script src="js/script.js"></script>
-
-</body>
-
+  </body>
 </html>
